@@ -1,0 +1,25 @@
+#!/bin/rc
+
+size=10000
+div=10
+
+if(~ $#* 1){
+	if(~ $"1 help) {
+		echo 'usage: run [size] [div]'
+		exit usage
+	}
+}
+if(~ $#* 2){
+	size=$1
+	div=$2
+}
+
+echo 'running with size = '^$size^', div = '^$div
+echo -n 'Go: '
+skynet -s $size -d $div
+echo -n 'libthread (thresh = 0): '
+skynetc -s $size -d $div -t 0
+echo -n 'libthread (thresh = 1): '
+skynetc -s $size -d $div -t 1
+echo -n 'libthread (thresh = 2): '
+skynetc -s $size -d $div -t 2
