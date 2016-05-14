@@ -1,0 +1,22 @@
+#!/bin/rc
+switch($objtype){
+case arm
+	CC=5c
+	LD=5l
+	O=5
+
+case 386
+	CC=8c
+	LD=8l
+	O=8
+
+case amd64
+	CC=6c
+	LD=6l
+	O=6
+}
+
+echo $CC^' skynet.c ; '^$LD^' -o skynetc skynet.'^$O
+$CC skynet.c ; $LD -o skynetc 'skynet.'^$O
+echo go build skynet.go
+# go build skynet.go
