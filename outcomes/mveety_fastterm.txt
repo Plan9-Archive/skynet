@@ -1,0 +1,91 @@
+mveety's fast terminal (9front/amd64 4 cpu)
+running with size = 10000, div = 10, bufd = (0 1 2 3 4 5 6 7 8 9 10)
+Go: 49995000 in 110 ms.
+libthread (thresh = 0, buf = 0): 49995000 in 1874 ms.
+libthread (thresh = 1, buf = 0): 49995000 in 1812 ms.
+libthread (thresh = 1, buf = 0, no frees): 49995000 in 1691 ms.
+libthread (thresh = 0, buf = 0, faster): 49995000 in 1743 ms.
+libthread (thresh = 1, buf = 0, faster): 49995000 in 1734 ms.
+libthread (thresh = 1, buf = 0, faster, no frees): 49995000 in 1688 ms.
+libthread (thresh = 0, buf = 0, fast): 49995000 in 1061 ms.
+libthread (thresh = 1, buf = 0, fast): 49995000 in 1273 ms.
+libthread (thresh = 0, buf = 1): 49995000 in 1659 ms.
+libthread (thresh = 1, buf = 1): 49995000 in 1839 ms.
+libthread (thresh = 1, buf = 1, no frees): 49995000 in 1557 ms.
+libthread (thresh = 0, buf = 1, faster): 49995000 in 1676 ms.
+libthread (thresh = 1, buf = 1, faster): 49995000 in 1660 ms.
+libthread (thresh = 1, buf = 1, faster, no frees): 49995000 in 1563 ms.
+libthread (thresh = 0, buf = 1, fast): 49995000 in 803 ms.
+libthread (thresh = 1, buf = 1, fast): 49995000 in 1080 ms.
+libthread (thresh = 0, buf = 2): 49995000 in 1583 ms.
+libthread (thresh = 1, buf = 2): 49995000 in 1573 ms.
+libthread (thresh = 1, buf = 2, no frees): 49995000 in 1561 ms.
+libthread (thresh = 0, buf = 2, faster): 49995000 in 1598 ms.
+libthread (thresh = 1, buf = 2, faster): 49995000 in 1538 ms.
+libthread (thresh = 1, buf = 2, faster, no frees): 49995000 in 1532 ms.
+libthread (thresh = 0, buf = 2, fast): 49995000 in 731 ms.
+libthread (thresh = 1, buf = 2, fast): 49995000 in 904 ms.
+libthread (thresh = 0, buf = 3): 49995000 in 1507 ms.
+libthread (thresh = 1, buf = 3): 49995000 in 1497 ms.
+libthread (thresh = 1, buf = 3, no frees): 49995000 in 1327 ms.
+libthread (thresh = 0, buf = 3, faster): 49995000 in 1500 ms.
+libthread (thresh = 1, buf = 3, faster): 49995000 in 1402 ms.
+libthread (thresh = 1, buf = 3, faster, no frees): 49995000 in 1418 ms.
+libthread (thresh = 0, buf = 3, fast): 49995000 in 666 ms.
+libthread (thresh = 1, buf = 3, fast): 49995000 in 825 ms.
+libthread (thresh = 0, buf = 4): 49995000 in 1379 ms.
+libthread (thresh = 1, buf = 4): 49995000 in 1296 ms.
+libthread (thresh = 1, buf = 4, no frees): 49995000 in 1227 ms.
+libthread (thresh = 0, buf = 4, faster): 49995000 in 1293 ms.
+libthread (thresh = 1, buf = 4, faster): 49995000 in 1342 ms.
+libthread (thresh = 1, buf = 4, faster, no frees): 49995000 in 1316 ms.
+libthread (thresh = 0, buf = 4, fast): 49995000 in 586 ms.
+libthread (thresh = 1, buf = 4, fast): 49995000 in 713 ms.
+libthread (thresh = 0, buf = 5): 49995000 in 1290 ms.
+libthread (thresh = 1, buf = 5): 49995000 in 1225 ms.
+libthread (thresh = 1, buf = 5, no frees): 49995000 in 1036 ms.
+libthread (thresh = 0, buf = 5, faster): 49995000 in 1201 ms.
+libthread (thresh = 1, buf = 5, faster): 49995000 in 1231 ms.
+libthread (thresh = 1, buf = 5, faster, no frees): 49995000 in 1235 ms.
+libthread (thresh = 0, buf = 5, fast): 49995000 in 495 ms.
+libthread (thresh = 1, buf = 5, fast): 49995000 in 625 ms.
+libthread (thresh = 0, buf = 6): 49995000 in 1157 ms.
+libthread (thresh = 1, buf = 6): 49995000 in 1151 ms.
+libthread (thresh = 1, buf = 6, no frees): 49995000 in 984 ms.
+libthread (thresh = 0, buf = 6, faster): 49995000 in 1090 ms.
+libthread (thresh = 1, buf = 6, faster): 49995000 in 1081 ms.
+libthread (thresh = 1, buf = 6, faster, no frees): 49995000 in 1068 ms.
+libthread (thresh = 0, buf = 6, fast): 49995000 in 437 ms.
+libthread (thresh = 1, buf = 6, fast): 49995000 in 561 ms.
+libthread (thresh = 0, buf = 7): 49995000 in 1044 ms.
+libthread (thresh = 1, buf = 7): 49995000 in 1052 ms.
+libthread (thresh = 1, buf = 7, no frees): 49995000 in 852 ms.
+libthread (thresh = 0, buf = 7, faster): 49995000 in 972 ms.
+libthread (thresh = 1, buf = 7, faster): 49995000 in 1322 ms.
+libthread (thresh = 1, buf = 7, faster, no frees): 49995000 in 1023 ms.
+libthread (thresh = 0, buf = 7, fast): 49995000 in 392 ms.
+libthread (thresh = 1, buf = 7, fast): 49995000 in 521 ms.
+libthread (thresh = 0, buf = 8): 49995000 in 842 ms.
+libthread (thresh = 1, buf = 8): 49995000 in 979 ms.
+libthread (thresh = 1, buf = 8, no frees): 49995000 in 798 ms.
+libthread (thresh = 0, buf = 8, faster): 49995000 in 848 ms.
+libthread (thresh = 1, buf = 8, faster): 49995000 in 892 ms.
+libthread (thresh = 1, buf = 8, faster, no frees): 49995000 in 860 ms.
+libthread (thresh = 0, buf = 8, fast): 49995000 in 331 ms.
+libthread (thresh = 1, buf = 8, fast): 49995000 in 439 ms.
+libthread (thresh = 0, buf = 9): 49995000 in 653 ms.
+libthread (thresh = 1, buf = 9): 49995000 in 832 ms.
+libthread (thresh = 1, buf = 9, no frees): 49995000 in 694 ms.
+libthread (thresh = 0, buf = 9, faster): 49995000 in 648 ms.
+libthread (thresh = 1, buf = 9, faster): 49995000 in 792 ms.
+libthread (thresh = 1, buf = 9, faster, no frees): 49995000 in 744 ms.
+libthread (thresh = 0, buf = 9, fast): 49995000 in 322 ms.
+libthread (thresh = 1, buf = 9, fast): 49995000 in 475 ms.
+libthread (thresh = 0, buf = 10): 49995000 in 665 ms.
+libthread (thresh = 1, buf = 10): 49995000 in 835 ms.
+libthread (thresh = 1, buf = 10, no frees): 49995000 in 724 ms.
+libthread (thresh = 0, buf = 10, faster): 49995000 in 638 ms.
+libthread (thresh = 1, buf = 10, faster): 49995000 in 797 ms.
+libthread (thresh = 1, buf = 10, faster, no frees): 49995000 in 749 ms.
+libthread (thresh = 0, buf = 10, fast): 49995000 in 314 ms.
+libthread (thresh = 1, buf = 10, fast): 49995000 in 963 ms.
