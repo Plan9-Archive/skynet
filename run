@@ -2,6 +2,7 @@
 
 size=10000
 div=10
+bufd=(0 1 2 3 4 5 6 7 8 9 10)
 
 if(~ $#* 1){
 	if(~ $"1 help) {
@@ -9,23 +10,30 @@ if(~ $#* 1){
 		exit usage
 	}
 }
-if(~ $#* 2){
+if(test $#* -ge 3){
 	size=$1
-	div=$2
+	shift
+	div=$1
+	shift
+	bufd=$*
 }
 
-echo 'running with size = '^$size^', div = '^$div
+echo 'running with size = '^$size^', div = '^$div^', bufd = ('^$"bufd^')'
 echo -n 'Go: '
 skynet -s $size -d $div
-for(buf in 0 1 2 3 4 5 6 7 8 9 10){
+for(buf in $bufd){
 	echo -n 'libthread (thresh = 0, buf = '^$buf^'): '
 	skynetc -s $size -d $div -t 0 -b $buf
 	echo -n 'libthread (thresh = 1, buf = '^$buf^'): '
 	skynetc -s $size -d $div -t 1 -b $buf
+	echo -n 'libthread (thresh = 1, buf = '^$buf^', no frees): '
+	skynetc -s $size -d $div -t 1 -b $buf -n
 	echo -n 'libthread (thresh = 0, buf = '^$buf^', faster): '
 	skynetc_faster -s $size -d $div -t 0 -b $buf
 	echo -n 'libthread (thresh = 1, buf = '^$buf^', faster): '
 	skynetc_faster -s $size -d $div -t 1 -b $buf
+	echo -n 'libthread (thresh = 1, buf = '^$buf^', faster, no frees): '
+	skynetc_faster -s $size -d $div -t 1 -b $buf -n
 	echo -n 'libthread (thresh = 0, buf = '^$buf^', fast): '
 	skynetc_fast -s $size -d $div -t 0 -b $buf
 	echo -n 'libthread (thresh = 1, buf = '^$buf^', fast): '
