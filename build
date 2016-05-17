@@ -18,5 +18,7 @@ case amd64
 
 echo $CC^' skynet.c ; '^$LD^' -o skynetc skynet.'^$O
 $CC skynet.c ; $LD -o skynetc 'skynet.'^$O
+echo $CC^' skynet_faster.c ; '^$LD^' -o skynetc_faster skynet_faster.'^$O
+$CC skynet_faster.c ; $LD -o skynetc_faster 'skynet_faster.'^$O
 echo go build skynet.go
 # go build skynet.go
