@@ -4,6 +4,7 @@
 
 int p2tthresh = 0;
 u64int chanbufsz = 0;
+int frees = 1;
 char *binname;
 
 typedef struct {
@@ -50,14 +51,16 @@ skynet(void *a)
 		sum += x;
 	}
 	send(c, &sum);
-	chanfree(rc);
-	free(nargs);
+	if(frees){
+		chanfree(rc);
+		free(nargs);
+	}
 }
 
 void
 usage(void)
 {
-	print("usage: %s [-s size] [-d div] [-t thresh] [-b chanbufsize]\n", binname);
+	print("usage: %s [-n] [-s size] [-d div] [-t thresh] [-b chanbufsize]\n", binname);
 	threadexitsall("usage");
 }
 
@@ -86,6 +89,9 @@ threadmain(int argc, char *argv[])
 		break;
 	case 'b':
 		chanbufsz = atoi(EARGF(usage));
+		break;
+	case 'n':
+		frees = 0;
 		break;
 	case 'h':
 	default:
