@@ -3,6 +3,8 @@
 #include <thread.h>
 
 int p2tthresh = 0;
+u64int chanbufsz = 0;
+char *binname = nil;
 
 typedef struct {
 	Channel *c;
@@ -19,6 +21,19 @@ typedef struct {
 
 SafeInt *argsiter;
 Skynetargs *nargs;
+Channel *iter;
+
+void
+iterator(Channel *c)
+{
+	u64int i;
+	
+	i = 0;
+	for(;;){
+		send(c, &i);
+		i++;
+	}
+}
 
 u64int
 intnroot(u64int n, u64int x)
@@ -103,6 +118,17 @@ safeint_incr(SafeInt *i)  // returns i->x then i->x++
 	return res;
 }
 
+u64int
+safeint_incr10(SafeInt *i)  // returns i->x then i->x++
+{
+	u64int res;
+	qlock(&i->l);
+	res = i->x;
+	i->x = i->x + 10;
+	qunlock(&i->l);
+	return res;
+}
+
 void
 skynet(void *a)
 {
@@ -123,12 +149,10 @@ skynet(void *a)
 		send(c, &num);
 		return;
 	}
-	rc = chancreate(sizeof(u64int), 0);
-	nargs = malloc(sizeof(Skynetargs)*div);
+	rc = chancreate(sizeof(u64int), chanbufsz);
 	for(i = 0; i < div; i++){
+		recv(iter, &argi);
 		subnum = num + i*(size/div);
-		argi = safeint_incr(argsiter);
-		print("argi = %ud\n", argi);
 		nargs[argi] = (Skynetargs){rc, subnum, size/div, div, level+1};
 		if(level < p2tthresh)
 			proccreate(skynet, &nargs[argi], mainstacksize);
@@ -146,7 +170,7 @@ skynet(void *a)
 void
 usage(void)
 {
-	print("usage: skynetc [-s size] [-d div] [-t thresh]\n");
+	print("usage: %s [-s size] [-d div] [-t thresh] [-b chanbufsize]\n", binname);
 	threadexitsall("usage");
 }
 
@@ -161,12 +185,15 @@ threadmain(int argc, char *argv[])
 	p2tthresh = 0;
 	size = 100000;
 	div = 10;
+	iter = chancreate(sizeof(u64int), 256);
+	proccreate(iterator, iter, mainstacksize);
 	argsiter = mallocz(sizeof(SafeInt), 1);
 	if(argsiter == nil){
 		print("error: could not malloc iterator: %r\n");
 		threadexitsall("malloc");
 	}
 	argsiter->x = 0;
+	binname = strdup(argv[0]);
 
 	ARGBEGIN{
 	case 's':
@@ -178,25 +205,23 @@ threadmain(int argc, char *argv[])
 	case 't':
 		p2tthresh = atoi(EARGF(usage));
 		break;
+	case 'b':
+		chanbufsz = atoi(EARGF(usage));
+		break;
 	case 'h':
 	default:
 		usage();
 		break;
 	}ARGEND
 
-	print("getting iters\n");
 	titers = totaliter(size, div);
-	print("running malloc (titers = %ud) (tsize = %ud bytes)\n",
-		titers, sizeof(Skynetargs)*titers+1);
 	nargs = mallocz(sizeof(Skynetargs)*(titers+1), 1);
 	if(nargs == nil){
 		print("error: could not malloc skynet arguments: %r\n");
 		threadexitsall("malloc");
 	}
-	print("msize(nargs) = %ud, should be %ud\n",
-		msize(nargs), (sizeof(Skynetargs)*(titers+1)));
 	a = mallocz(sizeof(Skynetargs), 1);
-	c = chancreate(sizeof(u64int), 0);
+	c = chancreate(sizeof(u64int), chanbufsz);
 	*a = (Skynetargs){c, 0, size, div, 0};
 	start = nsec();
 	threadcreate(skynet, a, mainstacksize);
