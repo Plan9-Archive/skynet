@@ -106,6 +106,6 @@ threadmain(int argc, char *argv[])
 	recv(c, &result);
 	end = nsec();
 	chanfree(c);
-	print("Result: %ud in %d ms.\n", result, (end-start)/1000000);
+	print("%ud in %d ms.\n", result, (end-start)/1000000);
 	threadexitsall(nil);
 }

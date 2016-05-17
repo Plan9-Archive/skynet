@@ -34,5 +34,5 @@ func main() {
 	go skynet(c, 0, *gsize, *gdiv)
 	result := <-c
 	took := time.Since(start)
-	fmt.Printf("Result: %d in %d ms.\n", result, took.Nanoseconds()/1e6)
+	fmt.Printf("%d in %d ms.\n", result, took.Nanoseconds()/1e6)
 }
