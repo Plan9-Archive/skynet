@@ -32,21 +32,16 @@ skynet(void *a)
 	if(size == 1){
 		send(c, &num);
 		return;
-		free(args);
 	}
 	rc = chancreate(sizeof(u64int), 0);
+	nargs = malloc(sizeof(Skynetargs)*div);
 	for(i = 0; i < div; i++){
-		nargs = malloc(sizeof(Skynetargs));
 		subnum = num + i*(size/div);
-		nargs->c = rc;
-		nargs->num = subnum;
-		nargs->size = size/div;
-		nargs->div = div;
-		nargs->level = level+1;
+		nargs[i] = (Skynetargs){rc, subnum, size/div, div, level+1};
 		if(level < p2tthresh)
-			proccreate(skynet, nargs, mainstacksize);
+			proccreate(skynet, &nargs[i], mainstacksize);
 		else
-			threadcreate(skynet, nargs, mainstacksize);
+			threadcreate(skynet, &nargs[i], mainstacksize);
 	}
 	for(i = 0; i < div; i++){
 		recv(rc, &x);
@@ -54,7 +49,7 @@ skynet(void *a)
 	}
 	send(c, &sum);
 	chanfree(rc);
-	free(args);
+	free(nargs);
 }
 
 void
@@ -100,6 +95,7 @@ threadmain(int argc, char *argv[])
 	recv(c, &result);
 	end = nsec();
 	chanfree(c);
+	free(a);
 	print("Result: %ud in %d ms.\n", result, (end-start)/1000000);
 	threadexitsall(nil);
 }

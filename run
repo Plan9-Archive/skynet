@@ -1,6 +1,6 @@
 #!/bin/rc
 
-size=10000
+size=100000
 div=10
 
 if(~ $#* 1){
@@ -21,5 +21,7 @@ echo -n 'libthread (thresh = 0): '
 skynetc -s $size -d $div -t 0
 echo -n 'libthread (thresh = 1): '
 skynetc -s $size -d $div -t 1
-echo -n 'libthread (thresh = 2): '
-skynetc -s $size -d $div -t 2
+echo -n 'libthread (thresh = 0, faster): '
+skynetc_faster -s $size -d $div -t 0
+echo -n 'libthread (thresh = 1, faster): '
+skynetc_faster -s $size -d $div -t 1
