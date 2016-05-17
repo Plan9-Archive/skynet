@@ -1,0 +1,3 @@
+#!/bin/rc
+echo 'rm *.[68] skynet skynetc*'
+rm *.[68] skynet skynetc*
