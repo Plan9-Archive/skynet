@@ -1,6 +1,6 @@
 #!/bin/rc
 
-size=100000
+size=10000
 div=10
 
 if(~ $#* 1){
@@ -17,11 +17,17 @@ if(~ $#* 2){
 echo 'running with size = '^$size^', div = '^$div
 echo -n 'Go: '
 skynet -s $size -d $div
-echo -n 'libthread (thresh = 0): '
-skynetc -s $size -d $div -t 0
-echo -n 'libthread (thresh = 1): '
-skynetc -s $size -d $div -t 1
-echo -n 'libthread (thresh = 0, faster): '
-skynetc_faster -s $size -d $div -t 0
-echo -n 'libthread (thresh = 1, faster): '
-skynetc_faster -s $size -d $div -t 1
+for(buf in 0 1 2 3 4 5 6 7 8 9 10){
+	echo -n 'libthread (thresh = 0, buf = '^$buf^'): '
+	skynetc -s $size -d $div -t 0 -b $buf
+	echo -n 'libthread (thresh = 1, buf = '^$buf^'): '
+	skynetc -s $size -d $div -t 1 -b $buf
+	echo -n 'libthread (thresh = 0, buf = '^$buf^', faster): '
+	skynetc_faster -s $size -d $div -t 0 -b $buf
+	echo -n 'libthread (thresh = 1, buf = '^$buf^', faster): '
+	skynetc_faster -s $size -d $div -t 1 -b $buf
+	echo -n 'libthread (thresh = 0, buf = '^$buf^', fast): '
+	skynetc_fast -s $size -d $div -t 0 -b $buf
+	echo -n 'libthread (thresh = 1, buf = '^$buf^', fast): '
+	skynetc_fast -s $size -d $div -t 1 -b $buf
+}

@@ -3,6 +3,8 @@
 #include <thread.h>
 
 int p2tthresh = 0;
+u64int chanbufsz = 0;
+char *binname;
 
 typedef struct {
 	Channel *c;
@@ -34,7 +36,7 @@ skynet(void *a)
 		return;
 		free(args);
 	}
-	rc = chancreate(sizeof(u64int), 0);
+	rc = chancreate(sizeof(u64int), chanbufsz);
 	for(i = 0; i < div; i++){
 		nargs = malloc(sizeof(Skynetargs));
 		subnum = num + i*(size/div);
@@ -60,7 +62,7 @@ skynet(void *a)
 void
 usage(void)
 {
-	print("usage: skynetc [-s size] [-d div] [-t thresh]\n");
+	print("usage: %s [-s size] [-d div] [-t thresh] [-b chanbufsize]\n", binname);
 	threadexitsall("usage");
 }
 
@@ -75,6 +77,7 @@ threadmain(int argc, char *argv[])
 	p2tthresh = 0;
 	size = 100000;
 	div = 10;
+	binname = strdup(argv[0]);
 
 	ARGBEGIN{
 	case 's':
@@ -86,6 +89,9 @@ threadmain(int argc, char *argv[])
 	case 't':
 		p2tthresh = atoi(EARGF(usage));
 		break;
+	case 'b':
+		chanbufsz = atoi(EARGF(usage));
+		break;
 	case 'h':
 	default:
 		usage();
@@ -93,7 +99,7 @@ threadmain(int argc, char *argv[])
 	}ARGEND
 
 	a = malloc(sizeof(Skynetargs));
-	c = chancreate(sizeof(u64int), 0);
+	c = chancreate(sizeof(u64int), chanbufsz);
 	*a = (Skynetargs){c, 0, size, div, 0};
 	start = nsec();
 	threadcreate(skynet, a, mainstacksize);

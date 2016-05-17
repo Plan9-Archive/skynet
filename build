@@ -16,9 +16,22 @@ case amd64
 	O=6
 }
 
+if(~ $#* 1){
+	if(~ $1 nogo){
+		NOGO=1
+	}
+}
+
 echo $CC^' skynet.c ; '^$LD^' -o skynetc skynet.'^$O
 $CC skynet.c ; $LD -o skynetc 'skynet.'^$O
 echo $CC^' skynet_faster.c ; '^$LD^' -o skynetc_faster skynet_faster.'^$O
 $CC skynet_faster.c ; $LD -o skynetc_faster 'skynet_faster.'^$O
-echo go build skynet.go
-# go build skynet.go
+echo $CC^' skynet_fast.c ; '^$LD^' -o skynetc_fast skynet_fast.'^$O
+$CC skynet_fast.c ; $LD -o skynetc_fast 'skynet_fast.'^$O
+if(~ $NOGO 1){
+	exit ''
+}
+if not {
+	echo go build skynet.go
+	go build skynet.go
+}
