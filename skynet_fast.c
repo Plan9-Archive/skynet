@@ -231,6 +231,6 @@ threadmain(int argc, char *argv[])
 	free(a);
 	free(argsiter);
 	free(nargs);
-	print("Result: %ud in %d ms.\n", result, (end-start)/1000000);
+	print("%ud in %d ms.\n", result, (end-start)/1000000);
 	threadexitsall(nil);
 }
