@@ -1,3 +1,10 @@
 'skynet' benchmark in go and c
 c version for plan 9 translated from go version (its not great).
 original source: http://blog.paralleluniverse.co/2016/05/03/skynet-go-quasar/
+
+skynet.go -- original go implementation
+skynet.c -- first c implementation
+skynet_faster.c -- c implementation with grouped mallocs in benchmark (other than
+	chancreate and thread create
+skynet_fast.c -- c implementation with no mallocs in benchmark (other than
+	chancreate and thread create
